@@ -1,2 +1,29 @@
-export MIFOSIO_PROJECTS="lang api crypto mariadb cassandra async command test anubis service-starter identity permitted-feign-client rhythm office customer accounting reporting default-setup portfolio group deposit-account-management teller provisioner test-accounting-portfolio test-provisioner-identity-organization test-provisioner-identity-rhythm-portfolio-accounting demo-server fims-web-app"
+export MIFOSIO_PROJECTS="lang \
+  api \
+  crypto \
+  mariadb \
+  cassandra \
+  async \
+  command \
+  test \
+  anubis \
+  service-starter \
+  identity \
+  permitted-feign-client \
+  rhythm \
+  office \
+  customer \
+  accounting \
+  reporting \
+  default-setup \
+  portfolio \
+  group \
+  deposit-account-management \
+  teller \
+  provisioner \
+  test-accounting-portfolio \
+  test-provisioner-identity-organization \
+  test-provisioner-identity-rhythm-portfolio-accounting \
+  demo-server \
+  fims-web-app"
 export MY_PROJECTS=""
