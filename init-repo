@@ -11,6 +11,8 @@ do
   git clone $MY_REPO_BASE/$projectName.git
   cd $PARENT/$projectName
   git checkout develop
+  git config user.email $GIT_USER_EMAIL
+  git config user.name $GIT_USER_NAME
   cd $PARENT
 done
 
@@ -20,5 +22,7 @@ do
   git clone $MY_REPO_BASE/$projectName.git
   cd $PARENT/$projectName
   git checkout develop
+  git config user.email $GIT_USER_EMAIL
+  git config user.name $GIT_USER_NAME
   cd $PARENT
 done

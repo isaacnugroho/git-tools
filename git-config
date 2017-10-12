@@ -1,2 +1,4 @@
 export MY_REPO_BASE=git@github.com:isaac-nugroho
 export MIFOSIO_REPO_BASE=git@github.com:mifosio
+export GIT_USER_EMAIL="isaac.nugroho@gmail.com"
+export GIT_USER_NAME="isaac"
