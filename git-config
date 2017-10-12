@@ -1,0 +1,2 @@
+export MY_REPO_BASE=git@github.com:isaac-nugroho
+export MIFOSIO_REPO_BASE=git@github.com:mifosio

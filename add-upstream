@@ -1,0 +1,16 @@
+#!/bin/bash
+
+PARENT=$(pwd)
+TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/git-config"
+source "$TOOLS_DIR/project-list"
+
+for projectName in $MIFOSIO_PROJECTS
+do
+  echo "========================= Add upstream for $projectName"
+  if [[ -d $PARENT/$projectName ]]; then
+    cd $PARENT/$projectName
+    git remote add upstream $MIFOSIO_REPO_BASE/$projectName
+    cd $PARENT
+  fi
+done

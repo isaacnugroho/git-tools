@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PARENT=$(pwd)
+TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/git-config"
+source "$TOOLS_DIR/project-list"
+
+for projectName in $MIFOSIO_PROJECTS
+do
+  echo "========================= Merge upstream/develop: $projectName"
+  if [[ -d $PARENT/$projectName ]]; then
+    cd $PARENT/$projectName
+    git fetch upstream
+    git merge --no-ff --no-edit upstream/develop
+    cd $PARENT
+  fi
+done

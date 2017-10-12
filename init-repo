@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PARENT=$(pwd)
+TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/git-config"
+source "$TOOLS_DIR/project-list"
+
+for projectName in $MIFOSIO_PROJECTS
+do
+  echo "========================= Cloning $projectName"
+  git clone $MY_REPO_BASE/$projectName.git
+  cd $PARENT/$projectName
+  git checkout develop
+  cd $PARENT
+done
+
+for projectName in $MY_PROJECTS
+do
+  echo "========================= Cloning $projectName"
+  git clone $MY_REPO_BASE/$projectName.git
+  cd $PARENT/$projectName
+  git checkout develop
+  cd $PARENT
+done
