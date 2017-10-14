@@ -11,7 +11,7 @@ do
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
     git fetch upstream
-    git merge --no-ff --no-edit upstream/develop
+    git merge --no-edit upstream/develop
     cd $PARENT
   fi
 done

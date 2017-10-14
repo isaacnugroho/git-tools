@@ -4,25 +4,35 @@ PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
+if [[ -e $PARENT/git-config ]]; then
+  source "$PARENT/git-config"
+fi
+if [[ -e $PARENT/project-list ]]; then
+  source "$PARENT/project-list"
+fi
 
 for projectName in $MIFOSIO_PROJECTS
 do
-  echo "========================= Cloning $projectName"
-  git clone $MY_REPO_BASE/$projectName.git
-  cd $PARENT/$projectName
-  git checkout develop
-  git config user.email $GIT_USER_EMAIL
-  git config user.name $GIT_USER_NAME
-  cd $PARENT
+  if [[ ! -d $projectName ]]; then
+    echo "========================= Cloning $projectName"
+    git clone $MY_REPO_BASE/$projectName.git
+    cd $PARENT/$projectName
+    git checkout develop
+    git config user.email $GIT_USER_EMAIL
+    git config user.name $GIT_USER_NAME
+    cd $PARENT
+  fi
 done
 
 for projectName in $MY_PROJECTS
 do
-  echo "========================= Cloning $projectName"
-  git clone $MY_REPO_BASE/$projectName.git
-  cd $PARENT/$projectName
-  git checkout develop
-  git config user.email $GIT_USER_EMAIL
-  git config user.name $GIT_USER_NAME
-  cd $PARENT
+  if [[ ! -d $projectName ]]; then
+    echo "========================= Cloning $projectName"
+    git clone $MY_REPO_BASE/$projectName.git
+    cd $PARENT/$projectName
+    git checkout develop
+    git config user.email $GIT_USER_EMAIL
+    git config user.name $GIT_USER_NAME
+    cd $PARENT
+  fi
 done
