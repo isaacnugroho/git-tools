@@ -1,4 +1,4 @@
-Bash scripts to work on @mifosio projects.
+Bash scripts to work on [mifosio](https://github.com/mifosio) projects.
 
 Configuration Files
 -------------------
