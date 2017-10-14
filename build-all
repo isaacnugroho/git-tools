@@ -16,8 +16,10 @@ do
   echo "========================= Building $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
-    chmod +x gradlew
-    /bin/bash ./gradlew publishToMavenLocal
+    if [[ -e gradlew ]]; then
+      chmod +x gradlew
+      /bin/bash ./gradlew publishToMavenLocal
+    fi
     cd $PARENT
   fi
 done
@@ -27,8 +29,10 @@ do
   echo "========================= Building $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
-    chmod +x gradlew
-    /bin/bash ./gradlew publishToMavenLocal
+    if [[ -e gradlew ]]; then
+      chmod +x gradlew
+      /bin/bash ./gradlew publishToMavenLocal
+    fi
     cd $PARENT
   fi
 done
