@@ -16,11 +16,13 @@ do
   if [[ ! -d $projectName ]]; then
     echo "========================= Cloning $projectName"
     git clone $MY_REPO_BASE/$projectName.git
-    cd $PARENT/$projectName
-    git checkout develop
-    git config user.email $GIT_USER_EMAIL
-    git config user.name $GIT_USER_NAME
-    cd $PARENT
+    if [[ -d $projectName ]]; then
+      cd $PARENT/$projectName
+      git checkout develop
+      git config user.email $GIT_USER_EMAIL
+      git config user.name $GIT_USER_NAME
+      cd $PARENT
+    fi
   fi
 done
 
@@ -29,10 +31,12 @@ do
   if [[ ! -d $projectName ]]; then
     echo "========================= Cloning $projectName"
     git clone $MY_REPO_BASE/$projectName.git
-    cd $PARENT/$projectName
-    git checkout develop
-    git config user.email $GIT_USER_EMAIL
-    git config user.name $GIT_USER_NAME
-    cd $PARENT
+    if [[ -d $projectName ]]; then
+      cd $PARENT/$projectName
+      git checkout develop
+      git config user.email $GIT_USER_EMAIL
+      git config user.name $GIT_USER_NAME
+      cd $PARENT
+    fi
   fi
 done
