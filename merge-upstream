@@ -10,8 +10,10 @@ do
   echo "========================= Merge upstream/develop: $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
+    git checkout develop
     git fetch upstream
     git merge --no-edit upstream/develop
+    git push
     cd $PARENT
   fi
 done

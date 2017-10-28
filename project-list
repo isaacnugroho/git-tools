@@ -21,9 +21,13 @@ export MIFOSIO_PROJECTS="lang \
   deposit-account-management \
   teller \
   provisioner \
+  cheques \
+  payroll \
+  template \
   test-accounting-portfolio \
   test-provisioner-identity-organization \
   test-provisioner-identity-rhythm-portfolio-accounting \
   demo-server \
-  fims-web-app"
+  fims-web-app \
+  fims-e2e"
 export MY_PROJECTS=""

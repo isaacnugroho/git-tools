@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "please specify branch"
+  exit
+fi
+BRANCH_NAME="$1"
+
+PARENT=$(pwd)
+TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/git-config"
+source "$TOOLS_DIR/project-list"
+if [[ -e $PARENT/git-config ]]; then
+  source "$PARENT/git-config"
+fi
+if [[ -e $PARENT/project-list ]]; then
+  source "$PARENT/project-list"
+fi
+
+for projectName in $MIFOSIO_PROJECTS
+do
+  echo "========================= Add upstream for $projectName"
+  if [[ -d $PARENT/$projectName ]]; then
+    cd $PARENT/$projectName
+    if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
+      git checkout -B "$BRANCH_NAME"
+    fi
+    cd $PARENT
+  fi
+done
+
+for projectName in $MY_PROJECTS
+do
+  echo "========================= Add upstream for $projectName"
+  if [[ -d $PARENT/$projectName ]]; then
+    cd $PARENT/$projectName
+    if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
+      git checkout -B "$BRANCH_NAME"
+    fi
+    cd $PARENT
+  fi
+done
