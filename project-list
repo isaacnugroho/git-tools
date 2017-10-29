@@ -19,9 +19,9 @@ export MIFOSIO_PROJECTS="lang \
   portfolio \
   group \
   deposit-account-management \
+  cheques \
   teller \
   provisioner \
-  cheques \
   payroll \
   template \
   test-accounting-portfolio \
