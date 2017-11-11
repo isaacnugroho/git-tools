@@ -22,7 +22,10 @@ do
   echo "========================= Add upstream for $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
+    git stash save
     if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
+      git checkout "$BRANCH_NAME"
+    else
       git checkout -B "$BRANCH_NAME"
     fi
     cd $PARENT
@@ -34,7 +37,10 @@ do
   echo "========================= Add upstream for $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
+    git stash save
     if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
+      git checkout "$BRANCH_NAME"
+    else
       git checkout -B "$BRANCH_NAME"
     fi
     cd $PARENT

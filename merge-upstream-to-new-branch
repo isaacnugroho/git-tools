@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ -z "$1" ]]; then
+  echo "please specify branch"
+  exit
+fi
+BRANCH_NAME="$1"
+
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$TOOLS_DIR/git-config"
@@ -11,10 +17,14 @@ do
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
     git stash save
-    git checkout develop
+    if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
+      git checkout "$BRANCH_NAME"
+    else
+      git checkout -B "$BRANCH_NAME"
+    fi
     git fetch upstream
     git merge --no-edit upstream/develop
-    git push
+    git push -u origin "$BRANCH_NAME"
     cd $PARENT
   fi
 done
