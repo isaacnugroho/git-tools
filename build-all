@@ -19,6 +19,9 @@ do
     if [[ -e gradlew ]]; then
       chmod +x gradlew
       /bin/bash ./gradlew publishToMavenLocal
+    elif [[ -e mvnw ]]; then
+      chmod +x gradlew
+      /bin/bash ./mvnw -DskipTests clean install
     fi
     cd $PARENT
   fi
@@ -32,6 +35,9 @@ do
     if [[ -e gradlew ]]; then
       chmod +x gradlew
       /bin/bash ./gradlew publishToMavenLocal
+    elif [[ -e mvnw ]]; then
+      chmod +x gradlew
+      /bin/bash ./mvnw -DskipTests clean install
     fi
     cd $PARENT
   fi
