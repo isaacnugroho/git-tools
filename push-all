@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [[ -z "$1" ]]; then
-  echo "please add commit message"
-  exit
-fi
-
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$TOOLS_DIR/git-config"
@@ -18,22 +13,20 @@ fi
 
 for projectName in $MIFOSIO_PROJECTS
 do
-  echo "========================= Commit changes: $projectName"
+  echo "========================= Push commits: $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
-    git add -A
-    git commit -m "$1"
+    git push
     cd $PARENT
   fi
 done
 
 for projectName in $MY_PROJECTS
 do
-  echo "========================= Commit changes: $projectName"
+  echo "========================= Push commits: $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
-    git add -A
-    git commit -m "$1"
+    git push
     cd $PARENT
   fi
 done

@@ -10,7 +10,7 @@ do
   echo "========================= pull develop: $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
-    git checkout develop
+#    git checkout develop
     git stash save
     git pull
     cd $PARENT

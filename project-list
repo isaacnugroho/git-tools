@@ -3,11 +3,13 @@ export MIFOSIO_PROJECTS="lang \
   crypto \
   mariadb \
   cassandra \
+  data-jpa \
   async \
   command \
   test \
   anubis \
   service-starter \
+  default-setup \
   identity \
   permitted-feign-client \
   rhythm \
@@ -15,7 +17,6 @@ export MIFOSIO_PROJECTS="lang \
   customer \
   accounting \
   reporting \
-  default-setup \
   portfolio \
   group \
   deposit-account-management \
