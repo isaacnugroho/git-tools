@@ -5,16 +5,23 @@ TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 
+if [[ -e $PARENT/git-config ]]; then
+  source "$PARENT/git-config"
+fi
+if [[ -e $PARENT/project-list ]]; then
+  source "$PARENT/project-list"
+fi
+
 for projectName in $MIFOSIO_PROJECTS
 do
   echo "========================= Merge upstream/develop: $projectName"
   if [[ -d $PARENT/$projectName ]]; then
     cd $PARENT/$projectName
     git stash save
-    git checkout develop
+    git checkout develop || git checkout -b develop
     git fetch upstream
     git merge --no-edit upstream/develop
-    git push
+    git push -u origin develop
     cd $PARENT
   fi
 done

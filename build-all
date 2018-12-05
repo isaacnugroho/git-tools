@@ -18,7 +18,8 @@ do
     cd $PARENT/$projectName
     if [[ -e gradlew ]]; then
       chmod +x gradlew
-      /bin/bash ./gradlew publishToMavenLocal
+#      /bin/bash ./gradlew publishToMavenLocal
+      gradle publishToMavenLocal
     elif [[ -e mvnw ]]; then
       chmod +x gradlew
       /bin/bash ./mvnw -DskipTests clean install
@@ -34,7 +35,8 @@ do
     cd $PARENT/$projectName
     if [[ -e gradlew ]]; then
       chmod +x gradlew
-      /bin/bash ./gradlew publishToMavenLocal
+#      /bin/bash ./gradlew publishToMavenLocal
+      gradle publishToMavenLocal
     elif [[ -e mvnw ]]; then
       chmod +x gradlew
       /bin/bash ./mvnw -DskipTests clean install
