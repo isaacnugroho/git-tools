@@ -8,14 +8,19 @@ BRANCH_NAME="$1"
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  echo "========================= Merge upstream/develop: $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  echo "========================= Merge upstream/develop: ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git stash save
     if [[ $(git branch -a | grep "$BRANCH_NAME") ]]; then
       git checkout "$BRANCH_NAME"
@@ -23,8 +28,7 @@ do
       git checkout -B "$BRANCH_NAME"
     fi
     git fetch upstream
-    git merge --no-edit upstream/develop
-    git push -u origin "$BRANCH_NAME"
+    git merge --no-edit upstream/develop && git push -u origin "$BRANCH_NAME"
     cd $PARENT
   fi
 done

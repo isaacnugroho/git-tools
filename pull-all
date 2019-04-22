@@ -2,6 +2,7 @@
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 
@@ -12,11 +13,31 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  echo "========================= pull develop: $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  echo "========================= pull develop: ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
+    git checkout -b develop
+    git stash save
+    git pull
+    cd $PARENT
+  fi
+done
+
+for projectName in $MY_PROJECTS
+do
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  echo "========================= pull develop: ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git checkout -b develop
     git stash save
     git pull

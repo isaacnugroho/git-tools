@@ -2,6 +2,7 @@
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 if [[ -e $PARENT/git-config ]]; then
@@ -11,11 +12,11 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  echo "========================= Init git flow for $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  echo "========================= Init git flow for ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git flow init -d
     cd $PARENT
   fi
@@ -23,9 +24,9 @@ done
 
 for projectName in $MY_PROJECTS
 do
-  echo "========================= Init git flow for $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  echo "========================= Init git flow for ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git flow init -d
     cd $PARENT
   fi

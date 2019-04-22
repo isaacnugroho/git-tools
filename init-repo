@@ -2,6 +2,7 @@
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 if [[ -e $PARENT/git-config ]]; then
@@ -11,32 +12,36 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  if [[ ! -d $projectName ]]; then
-    echo "========================= Cloning $projectName"
-    git clone $MY_REPO_BASE/$projectName.git
-    if [[ -d $projectName ]]; then
-      cd $PARENT/$projectName
-#      git checkout develop
-      git config user.email $GIT_USER_EMAIL
-      git config user.name $GIT_USER_NAME
-      cd $PARENT
-    fi
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  if [[ ! -d "$PARENT/${projectDesc[1]}" ]]; then
+    echo "========================= Cloning ${projectDesc[0]}"
+    mkdir -p "$PARENT/${projectDesc[1]}"
+    cd "$PARENT/${projectDesc[1]}"
+    git clone $ORIGIN_REPO_BASE/${projectDesc[1]}.git .
+    git config user.email $GIT_USER_EMAIL
+    git config user.name $GIT_USER_NAME
+    cd $PARENT
   fi
 done
 
 for projectName in $MY_PROJECTS
 do
-  if [[ ! -d $projectName ]]; then
-    echo "========================= Cloning $projectName"
-    git clone $MY_REPO_BASE/$projectName.git
-    if [[ -d $projectName ]]; then
-      cd $PARENT/$projectName
-#      git checkout develop
-      git config user.email $GIT_USER_EMAIL
-      git config user.name $GIT_USER_NAME
-      cd $PARENT
-    fi
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+
+  if [[ ! -d ${projectDesc[1]} ]]; then
+    echo "========================= Cloning ${projectDesc[0]}"
+    mkdir -p "$PARENT/${projectDesc[1]}"
+    cd "$PARENT/${projectDesc[1]}"
+    git clone $ORIGIN_REPO_BASE/${projectDesc[1]}.git .
+    git config user.email $GIT_USER_EMAIL
+    git config user.name $GIT_USER_NAME
+    cd $PARENT
   fi
 done

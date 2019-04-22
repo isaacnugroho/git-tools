@@ -7,6 +7,7 @@ fi
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 if [[ -e $PARENT/git-config ]]; then
@@ -16,11 +17,15 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  echo "========================= Commit changes: $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+
+  echo "========================= Commit changes: ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git add -A
     git commit -m "$1"
     cd $PARENT
@@ -29,9 +34,13 @@ done
 
 for projectName in $MY_PROJECTS
 do
-  echo "========================= Commit changes: $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+
+  echo "========================= Commit changes: ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     git add -A
     git commit -m "$1"
     cd $PARENT

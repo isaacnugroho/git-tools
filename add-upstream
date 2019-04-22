@@ -2,6 +2,7 @@
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 if [[ -e $PARENT/git-config ]]; then
@@ -11,12 +12,16 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+for projectName in $PROJECTS
 do
-  echo "========================= Add upstream for $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
-    git remote add upstream $MIFOSIO_REPO_BASE/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+
+  echo "========================= Add upstream for ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
+    git remote add upstream $UPSTREAM_REPO_BASE/${projectDesc[0]}
     cd $PARENT
   fi
 done

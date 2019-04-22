@@ -1,0 +1,15 @@
+#!/bin/bash
+
+split_line() {
+  declare -n _target=$1
+  IFS=';' read -r -a array <<< "$2"
+  if [[ "${#array[@]}" -lt "1" ]]; then
+    array[0] = ""
+    array[1] = ""
+  elif [[ "${#array[@]}" -eq "1" ]]; then
+    array+=("${array[0]}")
+  fi
+  _target+=("${array[0]}")
+  _target+=("${array[1]}")
+}
+

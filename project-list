@@ -1,4 +1,4 @@
-export MIFOSIO_PROJECTS="\
+export PROJECTS="\
   javamoney-lib \
   lang \
   api \
@@ -33,4 +33,5 @@ export MIFOSIO_PROJECTS="\
   demo-server \
   fims-web-app \
   fims-e2e"
+
 export MY_PROJECTS=""

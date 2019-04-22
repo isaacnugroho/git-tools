@@ -2,6 +2,7 @@
 
 PARENT=$(pwd)
 TOOLS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$TOOLS_DIR/splitter"
 source "$TOOLS_DIR/git-config"
 source "$TOOLS_DIR/project-list"
 if [[ -e $PARENT/git-config ]]; then
@@ -11,17 +12,21 @@ if [[ -e $PARENT/project-list ]]; then
   source "$PARENT/project-list"
 fi
 
-for projectName in $MIFOSIO_PROJECTS
+
+for projectName in $PROJECTS
 do
-  echo "========================= Building $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  echo "========================= Building ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     if [[ -e gradlew ]]; then
       chmod +x gradlew
-#      /bin/bash ./gradlew publishToMavenLocal
-      gradle publishToMavenLocal
+      /bin/bash ./gradlew publishToMavenLocal
     elif [[ -e mvnw ]]; then
-      chmod +x gradlew
+      chmod +x mvnw
       /bin/bash ./mvnw -DskipTests clean install
     fi
     cd $PARENT
@@ -30,17 +35,21 @@ done
 
 for projectName in $MY_PROJECTS
 do
-  echo "========================= Building $projectName"
-  if [[ -d $PARENT/$projectName ]]; then
-    cd $PARENT/$projectName
+  unset projectDesc
+  declare -a projectDesc
+  split_line projectDesc $projectName
+  
+  echo "========================= Building ${projectDesc[0]}"
+  if [[ -d "$PARENT/${projectDesc[1]}" ]]; then
+    cd "$PARENT/${projectDesc[1]}"
     if [[ -e gradlew ]]; then
       chmod +x gradlew
-#      /bin/bash ./gradlew publishToMavenLocal
-      gradle publishToMavenLocal
+      /bin/bash ./gradlew publishToMavenLocal
     elif [[ -e mvnw ]]; then
-      chmod +x gradlew
+      chmod +x mvnw
       /bin/bash ./mvnw -DskipTests clean install
     fi
     cd $PARENT
   fi
 done
+
